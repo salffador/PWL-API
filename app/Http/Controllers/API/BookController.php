@@ -7,84 +7,237 @@ use Illuminate\Http\Request;
 use illuminate\Http\Response;
 use symfony\Component\HttpKernel\Exception\HttpException;
 use App\Models\Book;
+use OpenApi\Annotations as OA;
+use Validator;
 
+/**
+* Class BookController.
+*
+* @author Jessica <jessica.422023027@civitas.ukrida.ac.id>
+*/
 class BookController extends Controller
 {
-    // /**
-    //  * Display a listing of item.
-    //  * 
-    //  * @return \Illuminate\Http\Response
-    //  */
+    /**
+     *@OA\GET(
+     *      path="/api/books",
+     *      tags={"book"},
+     *      description="Display a listing of items",
+     *      operationId="index",
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful",
+     *          @OA\JsonContent()
+     *      )
+     * )
+     */
     public function index()
     {
         return Book::get();
     }
 
-    // /**
-    //  * Dtore a newly created item in storage.
-    //  * 
-    //  * @param \Illuminate\Http\Request $request
-    //  * @return \Illuminate\Http\Response
-    //  */
+     /**
+    *@OA\Post(
+    *    path="/api/books",
+    *    tags={"book"},
+    *    summary="Store the newly created item",
+    *    operationId="store",
+    *    @OA\Response(
+    *        response=400,
+    *        description="Invalid input",
+    *        @OA\JSonContent()
+    *    ),
+    *    @OA\Response(
+    *        response=201,
+    *        description="Successfull",
+    *        @OA\JSonContent()
+    *    ),
+    *    @OA\RequestBody(
+    *        required=true,
+    *        description="Request body description",
+    *        @OA\JsonContent(
+    *            ref="#/components/schemas/Book",
+    *            example={"title": "Eating Clean", "author": "Inge Tumiwa-Bachrens","publisher": "Kawan Pustaka", "publication_year": "2016",
+    *                    "cover":"https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1482170055i/3351107.jpg",
+    *                    "desc": "Menjadi sehat adalah impian semua orang. Makanan yang selama ini kita pikir sehat ternyata belum tentu 'sehat' bagi tubuh kita.",
+    *                    "price": 85000,}
+    *        )
+    *    ),
+    * )
+    */ 
     public function store(Request $request)
     {
         try{
+            $validator = Validator::make($request->all(),[
+                'title' =>  'required|unique:books',
+                'author'=>  'required|max:100',
+            ]);
+            if($validator->fails()){
+                throw new HttpException(400, $validator->messages()->first());
+            }
             $book = new Book;
             $book->fill($request->validated())->save();
-
             return $book;
         
         } catch(\Exception $exception) {
             throw new HttpException(400, "Invalid data - {$exception->getMessage()}");
-    
         }
     }
-    // /**
-    //  * Display the specified item.
-    //  * 
-    //  * @param int $id
-    //  * @return \Illuminate\Http\Response
-    //  */
+
+     /**
+    *@OA\Get(
+    *    path="/api/books/{id}",
+    *    tags={"book"},
+    *    summary="Display the specified item",
+    *    operationId="show",
+    *    @OA\Response(
+    *        response=404,
+    *        description="Item not found",
+    *        @OA\JSonContent()
+    *    ),
+    *    @OA\Response(
+    *        response=400,
+    *        description="Invalid input",
+    *        @OA\JSonContent()
+    *    ),
+    *    @OA\Response(
+    *        response=200,
+    *        description="Successful",
+    *        @OA\JSonContent()
+    *    ),
+    *    @OA\Parameter(
+    *        name="id",
+    *        in= "path",
+    *        description="ID of item that needs to be displayed",
+    *        required=true,
+    *        @OA\Schema(
+    *            type="interger",
+    *            format="int64",
+    *        )
+    *    ),
+    * )
+    */
     public function show($id)
     {
-        $book = Book::findOrfail($id);
-
+        $book = Book::find($id);
+        if(!$book){
+            throw new HttpException(404, 'Item not found');
+        }
         return $book;
     }
 
-    // /**
-    //  * Update the specidied item in storage.
-    //  * 
-    //  * @param \Illuminate\Http\Request $request
-    //  * @param int $id
-    //  * @return \Illuminate\Http\Response
-    //  */
+     /**
+    *@OA\Put(
+    *    path="/api/books/{id}",
+    *    tags={"book"},
+    *    summary="Update the specified item",
+    *    operationId="update",
+    *    @OA\Response(
+    *        response=404,
+    *        description="Item not found",
+    *        @OA\JSonContent()
+    *    ),
+    *    @OA\Response(
+    *        response=400,
+    *        description="Invalid input",
+    *        @OA\JSonContent()
+    *    ),
+    *    @OA\Response(
+    *        response=200,
+    *        description="Successful",
+    *        @OA\JSonContent()
+    *   ),
+    *    @OA\Parameter(
+    *        name="id",
+    *        in= "path",
+    *        description="ID of item that needs to be updated",
+    *        required=true,
+    *        @OA\Schema(
+    *            type="interger",
+    *            format="int64",
+    *        )
+    *    ),
+    *    @OA\RequestBody(
+    *        required=true,
+    *        description="Request body description",
+    *        @OA\JsonContent(
+    *            ref="#/components/schemas/Book",
+    *            example={"title": "Eating Clean", "author": "Inge Tumiwa-Bachrens","publisher": "Kawan Pustaka", "publication_year": "2016",
+    *                    "cover":"https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1482170055i/3351107.jpg",
+    *                    "desc": "Menjadi sehat adalah impian semua orang. Makanan yang selama ini kita pikir sehat ternyata belum tentu 'sehat' bagi tubuh kita.",
+    *                    "price": 85000,}
+    *        ),
+    *    )
+    * )
+    */
     public function update(Request $request, $id)
     {
+        $book = Book::find($id);
         if(!$id){
-            throw new HttpException(400, "Invalid id");
+            throw new HttpException(404, "Item not found");
         }
 
         try {
-            $book = Book::find($id);
-            $book->fill($request->validated())->save();
-            
-            return $book;
+            $validator = Validator::make($request->all(), [
+                'title' => 'require|unique:books',
+                'author'=>  'required|max:100',
+            ]);
+            if($validator->fails()){
+                throw new HttpException(400, $validator->messages()->first());
+            }
+            $book->fill($request->all())->save();
+            return response()->json(array('message'=>'Updated successfully'), 200);
 
         } catch(\Exception $exception){
             throw new HttpException(400, "invalid data - {$exception->getMessage()}");
         }
         }
 
-        // /**
-        //  * Remove the specified item from storage.
-        //  * 
-        //  * @param int $id
-        //  * @return \Illuminate\Http\Response
-        //  */
-        public function destroy($id)
-        {
-            $book = Book::findOrfail($id);
-            $book->delete();
+     /**
+    * @OA\Delete(
+    *    path="/api/books/{id}",
+    *    tags={"book"},
+    *    summary="Remove the specified item",
+    *    operationId="destroy",
+    *    @OA\Response(
+    *        response=404,
+    *        description="Item not found",
+    *        @OA\JSonContent()
+    *    ),
+    *    @OA\Response(
+    *        response=400,
+    *        description="Invalid input",
+    *        @OA\JSonContent()
+    *    ),
+    *    @OA\Response(
+    *        response=200,
+    *        description="Successful",
+    *        @OA\JSonContent()
+    *    ),
+    *    @OA\Parameter(
+    *        name="id",
+    *        in= "path",
+    *        description="ID of item that needs to be displayed",
+    *        required=true,
+    *        @OA\Schema(
+    *            type="interger",
+    *            format="int64",
+    *        )
+    *    ),
+    * )
+    */
+    public function destroy($id)
+    {
+        $book = Book::find($id);
+        if(!$book){
+            throw new HttpException(404, 'Item not found');
         }
+
+        try {
+            $book->delete();
+            return response()->json(array('message'=>'Deleted successfully'), 200);
+
+        } catch(\Exception $exception){
+            throw new HttpException(400, "Invalid data : {$exception->getMessage()}");
+        }
+    }
 }
