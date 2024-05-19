@@ -18,7 +18,7 @@
                 "tags": [
                     "book"
                 ],
-                "description": "Display a listing of items",
+                "summary": "Display a listing of the items",
                 "operationId": "index",
                 "responses": {
                     "200": {
@@ -35,7 +35,7 @@
                 "tags": [
                     "book"
                 ],
-                "summary": "Store the newly created item",
+                "summary": "Store a newly created item",
                 "operationId": "store",
                 "requestBody": {
                     "description": "Request body description",
@@ -50,8 +50,8 @@
                                 "author": "Inge Tumiwa-Bachrens",
                                 "publisher": "Kawan Pustaka",
                                 "publication_year": "2016",
-                                "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1482170055i/3351107.jpg",
-                                "desc": "Menjadi sehat adalah impian semua orang. Makanan yang selama ini kita pikir sehat ternyata belum tentu 'sehat' bagi tubuh kita.",
+                                "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1482170055i/33511107.jpg",
+                                "description": "Menjadi sehat adalah impian semua orang. Makanan yang selama ini kita pikir sehat ternyata belum tentu 'sehat' bagi tubuh kita.",
                                 "price": 85000
                             }
                         }
@@ -67,7 +67,7 @@
                         }
                     },
                     "201": {
-                        "description": "Successfull",
+                        "description": "Successful",
                         "content": {
                             "application/json": {
                                 "schema": {}
@@ -91,7 +91,7 @@
                         "description": "ID of item that needs to be displayed",
                         "required": true,
                         "schema": {
-                            "type": "interger",
+                            "type": "integer",
                             "format": "int64"
                         }
                     }
@@ -136,7 +136,7 @@
                         "description": "ID of item that needs to be updated",
                         "required": true,
                         "schema": {
-                            "type": "interger",
+                            "type": "integer",
                             "format": "int64"
                         }
                     }
@@ -154,8 +154,8 @@
                                 "author": "Inge Tumiwa-Bachrens",
                                 "publisher": "Kawan Pustaka",
                                 "publication_year": "2016",
-                                "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1482170055i/3351107.jpg",
-                                "desc": "Menjadi sehat adalah impian semua orang. Makanan yang selama ini kita pikir sehat ternyata belum tentu 'sehat' bagi tubuh kita.",
+                                "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1482170055i/33511107.jpg",
+                                "description": "Menjadi sehat adalah impian semua orang. Makanan yang selama ini kita pikir sehat ternyata belum tentu 'sehat' bagi tubuh kita.",
                                 "price": 85000
                             }
                         }
@@ -198,10 +198,10 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "ID of item that needs to be displayed",
+                        "description": "ID of item that needs to be removed",
                         "required": true,
                         "schema": {
-                            "type": "interger",
+                            "type": "integer",
                             "format": "int64"
                         }
                     }
@@ -239,7 +239,7 @@
         "schemas": {
             "Book": {
                 "title": "Book model",
-                "description": "Book Model",
+                "description": "Book model",
                 "required": [
                     "title",
                     "author"
