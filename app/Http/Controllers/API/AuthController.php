@@ -17,54 +17,55 @@ use OpenAPI\Annotations as OA;
  */
 class AuthController extends Controller
 {
-/**
- * @OA\Post(
- *      path="/api/user/register",
- *      tags={"user"},
- *      summary="Register new user & get token",
- *      operationId="register",
- *      @OA\Response(
- *          response=400,
- *          description="Invalid input",
- *          @OA\JsonContent()
- *      ),
- *      @OA\Response(
- *          response=201,
- *          description="Successful",
- *          @OA\JsonContent()
- *      ),
- *      @OA\RequestBody(
- *          required=true,
- *          description="Request body description",
- *          @OA\JsonContent(
- *              ref="components/schemas/User",
- *              example={"name": "Trixie Christy Sumantri", "email": "trix.chris.sum@gmail.com","password": "Pass123", "password_conformation": "Pass123"}
- *          ),
- *      )
- * )
- */
-public function register(Request $request){
-    try{
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
-        if ($validator->fails()){
-            throw new HttpException(400, $validator->messages()->first());
+/**  @OA\Post(
+     *     path="/api/user/register",
+     *     tags={"User"},
+     *     summary="Register new user & get token",
+     *     operationId="register",
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid input",
+     *         @OA\JsonContent()
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Successful",
+     *         @OA\JsonContent()
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         description="Request body description",
+     *         @OA\JsonContent(
+     *             ref="#/components/schemas/User",
+     *             example={"name": "Trixie Christy Sumantri", "email": "trix.chris.sum@gmail.com","password": "Pass123", 
+     *                      "password_confirmation": "Pass123"}
+     *         ),
+     *     )
+     * )
+     */
+    public function register(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:6|confirmed',
+            ]);
+            if ($validator->fails()) {
+                throw new HttpException(400, $validator->messages()->first());
+            }
+            $request['password'] = Hash::make($request['password']);
+            $request['remember_token'] = \Illuminate\Support\Str::random(10);
+            $user = User::create($request->toArray());
+            $token = $user->createToken('All Yours')->accessToken;
+            return response()->json(
+                array('name' => $request->name, 'email' => $request->get('email'), 'token' => $token),
+                200 
+            );
+        } catch(\Exception $exception) {
+            throw new HttpException(400, "Invalid data: {$exception->getMessage()}");
         }
-        $request['password']        =   Hash::make($request['password']);
-        $request['remember_token']  =   \Illuminate\Support\Str::random(10);
-        $user   = User::create($request->toArray());
-        $token  = $user->createToken('All Yours')->accessToken; //string inside createToke is the token name
-        return response()->json(
-            array('name'=>$request->name, 'email'=>$request->$request->get('email'), 'token'=>$token),
-            200
-        );
-    } catch(\Exception $exception) {
-        throw new HttpException(400, "Invalid data: {$exception->getMessage()}");
     }
-}
 
 /**
  * @OA\Post(
@@ -86,7 +87,7 @@ public function register(Request $request){
  *          required=true,
  *          description="Request body description",
  *          @OA\JsonContent(
- *              ref="components/schemas/User",
+ *              ref="#/components/schemas/User",
  *              example={"email": "trix.chris.sum@gmail.com","password": "Pass123"}
  *          ),
  *      )
@@ -101,7 +102,7 @@ public function login(Request $request){
         if ($validator->fails()){
             throw new HttpException(400, $validator->messages()->first());
         }
-        $user = User::where('email',$request->eamil)->first();
+        $user = User::where('email',$request->email)->first();
         if ($user){
             if (Hash::check($request->password, $user->password)){
                 $token = $user->createToken('All Yours')->accessToken;

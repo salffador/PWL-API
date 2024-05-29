@@ -26,13 +26,13 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "components/schemas/User"
+                                "$ref": "#/components/schemas/User"
                             },
                             "example": {
                                 "name": "Trixie Christy Sumantri",
                                 "email": "trix.chris.sum@gmail.com",
                                 "password": "Pass123",
-                                "password_conformation": "Pass123"
+                                "password_confirmation": "Pass123"
                             }
                         }
                     }
@@ -70,7 +70,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "components/schemas/User"
+                                "$ref": "#/components/schemas/User"
                             },
                             "example": {
                                 "email": "trix.chris.sum@gmail.com",
@@ -394,6 +394,18 @@
                 ],
                 "xml": {
                     "name": "Book"
+                }
+            },
+            "User": {
+                "title": "User model",
+                "description": "User model",
+                "required": [
+                    "name",
+                    "email",
+                    "password"
+                ],
+                "xml": {
+                    "name": "User"
                 }
             }
         },

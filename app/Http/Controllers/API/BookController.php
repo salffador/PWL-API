@@ -69,7 +69,7 @@ class BookController extends Controller
     {
         try{
             $validator = Validator::make($request->all(), [
-                'title'  => 'required|unique:book',
+                'title'  => 'required|unique:books',
                 'author'  => 'required|max:100',
             ]);
             if ($validator->fails()) {
@@ -180,7 +180,7 @@ class BookController extends Controller
 
         try{
             $validator = Validator::make($request->all(), [
-                'title'  => 'required|unique:book',
+                'title'  => 'required|unique:books',
                 'author'  => 'required|max:100',
             ]);
             if ($validator->fails()) {
