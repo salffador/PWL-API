@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('user')->group(function(){
     Route::get('/users', function(){
-        return $request->user();
+        return $request->user(); 
     });
     Route::post('/register', [AuthController::class, 'register']);
     Route::get('/login', [AuthController::class, 'login'])->name('login');
