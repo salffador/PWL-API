@@ -17,7 +17,7 @@
                 <div class="col-lg-3 col-lg-3 col-6">
                     <div class="header-right-items content__hidden d-none d-md-block">
                         <span class="phone-number font-lg-p" title="Call us for fast delivery">
-                            <a href="#cfd"><i class="icon-telephone"></i>&nbsp;&nbsp;<small class="text-color-primary"><b>+(62) 8888418488</b></small></a>
+                            <a href="#cfd"><i class="icon-telephone"></i>&nbsp;&nbsp;<small class="text-color-primary"><b>+(62) 422023027</b></small></a>
                         </span>
                     </div>
                     <div class="logo__hidden text-start">
@@ -154,7 +154,7 @@
                                 <a href="#" class="text-color-primary" target="_blank">privacy policy</a>.
                             </p>
                             <div class="button-box mt-25">
-                                <a href="#" class="btn btn--full btn--black" id="form-register-btn">Log in</a>
+                                <a href="#" class="btn btn--full btn--black" id="form-register-btn">Register</a>
                             </div>
                         </form>
                         <div id="form-register-loading" style="text-align:center;display:none">
