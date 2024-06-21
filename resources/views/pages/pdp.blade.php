@@ -81,16 +81,12 @@
 
                         <div class="product_meta mt-30">
                             <div class="posted_in item_meta">
-                                <span class="label">Author: </span>
+                                <span class="label">Ceramicist: </span>
                                 <span id="product-author" class="text-color-primary"></span>
                             </div>
                             <div class="tagged_as item_meta">
                                 <span class="label">Publisher: </span>
                                 <span id="product-publisher"></span>
-                            </div>
-                            <div class="tagged_as item_meta">
-                                <span class="label">Tag: </span>
-                                <span id="product-tag"></span>
                             </div>
                         </div>
 

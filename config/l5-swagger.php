@@ -208,7 +208,7 @@ return [
                 ],
                 'passport' => [
                     'type'          => 'oauth2',
-                    'description'   =>'Laracel passport oauth2 security.',
+                    'description'   =>'Laravel passport oauth2 security.',
                     'in'            => 'header',
                     'scheme'        => 'https',
                     'flows'         => [

@@ -8,16 +8,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
-
-
 /**
  * Class User.
  * 
- * @author Jessica Alexander <jessica.422023027@civitas.ukrida.ac.id>
+ * @author Salvador <steven.422023029@civitas.ukrida.ac.id>
  * 
  * @OA\Schema(
  *      description="User model",
- *      title="User model,
+ *      title="User model",
  *      @OA\Xml(
  *          name="User"
  *      )

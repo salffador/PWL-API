@@ -14,7 +14,7 @@ function getDataByWindowUrlKey(){
       $('#product-price').html('IDR '+parseFloat(response.data.price).toLocaleString());
       $('#product-description').html(response.data.description);
       $('#product-author').html(response.data.author);
-      $('#product-publisher').html('First Published '+response.data.publication_year+' by '+response.data.publisher);
+      $('#product-publisher').html(response.data.publisher);
 
       // START -- note, unless you have these data in a database structure, here we are hardcoding them for display purposes
         // review

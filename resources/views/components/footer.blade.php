@@ -49,7 +49,7 @@
         <div class="container-fluid container-fluid--cp-100">
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6 order-md-1 order-2">
-                    <span class="copyright-text text-center text-md-start">&copy; 2024 Jeje's World of Books. <a  href="https://hasthemes.com/" target="_blank">All Rights Reserved.</a></span>
+                    <span class="copyright-text text-center text-md-start">&copy; 2024 Salva's Ceramic Craft Studio. <a  href="https://hasthemes.com/" target="_blank">All Rights Reserved.</a></span>
 
                 </div>
 
@@ -58,12 +58,12 @@
                         <h6 class="title">Follow Us On Social</h6>
                         <ul class="list footer-social-networks ">
                             <li class="item">
-                                <a href="https://twitter.com" target="_blank" aria-label="Twitter">
+                                <a href="https://facebook.com" target="_blank" aria-label="Twitter">
                                     <i class="social social_facebook"></i>
                                 </a>
                             </li>
                             <li class="item">
-                                <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+                                <a href="https://twitter.com" target="_blank" aria-label="Facebook">
                                     <i class="social social_twitter"></i>
                                 </a>
                             </li>

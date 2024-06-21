@@ -11,7 +11,7 @@ use OpenApi\Annotations as OA;
 /**
  * Class Book.
  * 
- * @author  Jessica <jessica.422023027@civitas.ukrida.ac.id>
+ * @author  Salvador <steven.422023029@civitas.ukrida.ac.id>
  * 
  * @OA\Schema(
  *     description="Book model",
